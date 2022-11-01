@@ -13,11 +13,10 @@ const routes: Routes = [
   { path: 'registrarse', component: RegistroComponent },
   {
     path: 'mascota',
-    component: TableroComponent,
     children: [
-      { path: ':id', component: MascotasComponent },
       { path: 'editar', component: EditarComponent },
       { path: 'editar/:id', component: EditarComponent },
+      { path: ':id', component: MascotasComponent },
     ],
   },
 

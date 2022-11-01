@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Timestamp } from 'firebase/firestore';
 import { Mascota } from 'src/app/modelo/mascota.model';
+import { mascotaServicio } from 'src/app/servicios/masctoa.service';
 
 @Component({
   selector: 'app-tablero',
@@ -8,15 +10,24 @@ import { Mascota } from 'src/app/modelo/mascota.model';
 })
 export class TableroComponent implements OnInit {
   mascota: Mascota = {
-    id: '1',
-    nombre: 'Juan',
-    enfermedades: 'asdfas',
-    actualizado: 'nunca',
-    modificado: 'nunca',
-    foto: '../../assets/img/conejo.jpg',
+    id: '',
+    nombre: '',
+    enfermedades: '',
+    descripcion: '',
+    actualizado: new Timestamp (0 , 0),
+    foto: '',
   };
-  mascotas: Mascota[] = [this.mascota, this.mascota];
-  constructor() {}
+  mascotas: Mascota[];
+  
+  constructor(private mascotaServicio: mascotaServicio,
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.mascotaServicio.getmascotas().subscribe(mascotas => {
+      this.mascotas = mascotas;
+      //this.timestampTrasnform();
+    })
+    
+  }
+
 }

@@ -1,5 +1,15 @@
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { environment } from 'src/environments/environment';
+import { AngularFireModule } from '@angular/fire/compat/';
+import {
+  AngularFirestoreModule,
+  SETTINGS,
+} from '@angular/fire/compat/firestore';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,6 +20,7 @@ import { EditarComponent } from './componentes/editar/editar.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { RegistroComponent } from './componentes/registro/registro.component';
 import { NoEncontradoComponent } from './componentes/no-encontrado/no-encontrado.component';
+import { mascotaServicio } from './servicios/masctoa.service';
 
 @NgModule({
   declarations: [
@@ -20,13 +31,17 @@ import { NoEncontradoComponent } from './componentes/no-encontrado/no-encontrado
     EditarComponent,
     LoginComponent,
     RegistroComponent,
-    NoEncontradoComponent
+    NoEncontradoComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firestore, 'mascotas'),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    FormsModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [mascotaServicio],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
