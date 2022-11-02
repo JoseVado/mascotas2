@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { async } from '@firebase/util';
-import { Timestamp } from 'firebase/firestore';
 import { Mascota } from 'src/app/modelo/mascota.model';
 import { FileUploadService } from 'src/app/servicios/fileUpload.service';
 import { mascotaServicio } from 'src/app/servicios/masctoa.service';
@@ -16,21 +14,13 @@ export class TableroComponent implements OnInit {
   constructor(
     private mascotaServicio: mascotaServicio,
     private fileUploadServicio: FileUploadService
-  ) {/*
-    this.mascotaServicio.getMascotas().subscribe((mascotas) => {
-      this.mascotas = mascotas;
-      this.fotos();
-    });*/
-  }
+  ) {}
 
-  ngOnInit(): void{
-  
+  ngOnInit(): void {
     this.mascotaServicio.getMascotas().subscribe((mascotas) => {
       this.mascotas = mascotas;
       this.fotos();
-      
     });
-    
   }
 
   fotos() {
@@ -42,7 +32,7 @@ export class TableroComponent implements OnInit {
         })
         .catch((error) => {
           console.log(error);
-          return '../../assets/img/logo.png';
+          mascota.foto =  '../../assets/img/logo.png';
         });
     });
   }

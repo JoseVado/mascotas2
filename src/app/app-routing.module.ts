@@ -6,13 +6,20 @@ import { MascotasComponent } from './componentes/mascotas/mascotas.component';
 import { NoEncontradoComponent } from './componentes/no-encontrado/no-encontrado.component';
 import { RegistroComponent } from './componentes/registro/registro.component';
 import { TableroComponent } from './componentes/tablero/tablero.component';
+import { AuthGuard } from './guardianes/auth.guard';
+import { ConfiguracionGuard } from './guardianes/configuracion.guard';
 
 const routes: Routes = [
-  { path: '', component: TableroComponent },
+  { path: '', component: TableroComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
-  { path: 'registrarse', component: RegistroComponent },
+  {
+    path: 'registrarse',
+    component: RegistroComponent,
+    canActivate: [ConfiguracionGuard],
+  },
   {
     path: 'mascota',
+    canActivate: [AuthGuard],
     children: [
       { path: 'editar', component: EditarComponent },
       { path: 'editar/:id', component: EditarComponent },
@@ -25,6 +32,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

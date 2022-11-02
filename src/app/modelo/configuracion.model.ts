@@ -1,3 +1,3 @@
 export interface configuracion{
-    permitirRegistro?: boolean;
+    crearUsuario?: boolean;
 }

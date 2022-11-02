@@ -24,7 +24,9 @@ import { mascotaServicio } from './servicios/masctoa.service';
 import { LoginService } from './servicios/login.service';
 import { ConfiguracionServicio } from './servicios/configuracion.service';
 import { FileUploadService } from './servicios/fileUpload.service';
-import {AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AuthGuard } from './guardianes/auth.guard';
+import { ConfiguracionGuard } from './guardianes/configuracion.guard';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,14 @@ import {AngularFireStorageModule } from '@angular/fire/compat/storage';
     AngularFireStorageModule,
     FormsModule,
   ],
-  providers: [mascotaServicio, LoginService, ConfiguracionServicio,FileUploadService],
+  providers: [
+    mascotaServicio,
+    LoginService,
+    ConfiguracionServicio,
+    FileUploadService,
+    AuthGuard,
+    ConfiguracionGuard,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

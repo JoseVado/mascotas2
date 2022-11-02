@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
+import { getDownloadURL, getStorage, ref, uploadBytes, deleteObject  } from 'firebase/storage';
 
 @Injectable()
 export class FileUploadService {
@@ -16,10 +16,16 @@ export class FileUploadService {
   getFileOfStorage(name: string): Promise<string> {
     const storage = getStorage();
     const storageRef = ref(storage, `${name}`);
-    let respuetsa;
+
+    return getDownloadURL(storageRef);
+  }
+
+
+  deleteOfStorage(name: string): void {
     
-        
-      return getDownloadURL(storageRef);
- 
+    const storage = getStorage();
+    const storageRef = ref(storage, `${name}`);
+    
+    deleteObject(storageRef).then().catch(error => console.log(error));
   }
 }

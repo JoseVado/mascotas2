@@ -13,7 +13,7 @@ export class ConfiguracionGuard implements CanActivate{
     canActivate(): Observable<boolean> {
         return this.configuracionServicio.getConfiguracion().pipe(
           map( config => {
-            if (config.permitirRegistro) {
+            if (config.crearUsuario) {
               return true;
             } else {
                 this.router.navigate(['/login']);

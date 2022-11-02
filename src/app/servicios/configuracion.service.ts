@@ -18,6 +18,8 @@ export class ConfiguracionServicio{
     getConfiguracion(): Observable<configuracion>{
         this.configuracionDoc = this.db.doc<configuracion>(`config/${this.id}`)
         this.configuracion = this.configuracionDoc.valueChanges();
+        
+        
         return this.configuracion;
     }
 

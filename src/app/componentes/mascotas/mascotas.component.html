@@ -1,1 +1,51 @@
-<p>mascotas works!</p>
+<div class="container">
+    <h6><small>Ultima actualización: {{ mascota.actualizado.toDate().toString().substring(0,25) }}</small></h6>
+<div class="jumbotron jumbotron-fluid">
+    <h1 class="display-1">{{ mascota.nombre }}</h1>
+    
+    <div class="container-fluid" style="width:800px; margin:0 auto;">
+        
+        <div class="row">
+            <div class="col-sm-auto">
+                
+                <img src="{{ mascota.foto }}" width="300" alt="">
+                
+            </div>
+        
+            <div class="col-sm-auto">
+                <div class="container-fluid">
+                    <h5 class="text-center"><strong>Folio</strong></h5>
+                    <p class="text-center">{{ mascota.id }}</p>
+
+                    <h5 class="text-center"><strong>Descripcion</strong></h5>
+                    <p class="text-center">{{ mascota.descripcion }}</p>
+                    <h5 class="text-center"><strong>Enfermedades</strong></h5>
+                    <p class="text-center">{{ mascota.enfermedades }}</p>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+    <hr class="my-4">
+</div>
+
+<div class="row justify-content-between">
+    <div class="col-8">
+        <a routerLink="/" class="btn btn-info">
+            Regresar
+        </a>
+    </div>
+    <div class="col-1">
+        <a routerLink="/mascota/editar/{{mascota.id}}" class="btn btn-info">
+            Editar
+        </a>
+    </div>
+    <div class="col-1">
+        <a value="Borrar" class="btn btn-danger" (click)="eliminar()" >
+            Eliminar
+        </a>
+    </div>
+    
+</div>
+</div>

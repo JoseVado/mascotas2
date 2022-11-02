@@ -35,11 +35,23 @@
           #nombre="ngModel"
           [(ngModel)]="mascota.enfermedades"
           required
-          minlength="10"
+          minlength="5"
         />
       </div>
-      <div class="form-group">
-        <label for="enfermedades">Foto</label>
+      <div class="form-group" *ngIf="!id">
+        <label for="foto">Foto</label>
+        <input
+          type="file"
+          name="foto"
+          id="foto"
+          class="form-control"
+          (change)="capturarFile($event)"
+          required
+        />
+      </div>
+
+      <div class="form-group" *ngIf="id">
+        <label for="foto">Foto</label>
         <input
           type="file"
           name="foto"
@@ -48,22 +60,25 @@
           (change)="capturarFile($event)"
         />
       </div>
-      <!-- 
 
-        <div>
-        <img [src]="imagenPrevia" alt="imagen">
+      <div class="py-2">
+        <div class="form-group" *ngIf="!id">
+          <a routerLink="/" class="btn btn-primary">Regresar</a>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="!capturarFile"
+            style="margin-left: 60%"
+          >
+            Guardar
+          </button>
         </div>
-       -->
-      
 
-      <div class="form-group" >
-        <button type="submit" class="btn btn-primary" [disabled]="!capturarFile">Guardar</button>
+        <div class="form-group" *ngIf="id">
+          <a routerLink="/mascota/{{id}}" class="btn btn-primary">Regresar</a>
+          <button type="submit" class="btn btn-success" style="margin-left: 60%">Modificar</button>
+        </div>
       </div>
-
-      
-
-
     </div>
   </form>
-
 </div>

@@ -42,9 +42,9 @@ export class mascotaServicio {
   }
 
   getMascota(id: string) {
-    this.mascotaDoc = this.db.doc<Mascota>(`mascotas/${id}`);
+    this.mascotaDoc = this.db.doc<Mascota>(`mascota/${id}`);
     this.mascota = this.mascotaDoc.snapshotChanges().pipe(
-      map((accion) => {
+      map(accion => {
         if (accion.payload.exists === false) {
           return null;
         } else {
@@ -58,12 +58,12 @@ export class mascotaServicio {
   }
 
   modificarMascota(mascota: Mascota) {
-    this.mascotaDoc = this.db.doc(`mascotas/${mascota.id}`);
+    this.mascotaDoc = this.db.doc(`mascota/${mascota.id}`);
     this.mascotaDoc.update(mascota);
   }
 
   eliminarMascota(mascota: Mascota) {
-    this.mascotaDoc = this.db.doc(`mascotas/${mascota.id}`);
+    this.mascotaDoc = this.db.doc(`mascota/${mascota.id}`);
     this.mascotaDoc.delete();
   }
 }
