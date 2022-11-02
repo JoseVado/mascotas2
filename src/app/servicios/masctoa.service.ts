@@ -7,6 +7,7 @@ import {
 import { Observable } from 'rxjs';
 import { Mascota } from '../modelo/mascota.model';
 import { map } from 'rxjs';
+import { FileUploadService } from './fileUpload.service';
 
 @Injectable()
 export class mascotaServicio {
@@ -15,19 +16,20 @@ export class mascotaServicio {
   mascotas: Observable<Mascota[]>;
   mascota: Observable<Mascota | null>;
 
-  constructor(private db: AngularFirestore) {
+  constructor(private db: AngularFirestore,private fileUploadServicio: FileUploadService) {
     this.mascotaColeccion = db.collection('mascota', (ref) =>
       ref.orderBy('nombre', 'asc')
     );
   }
 
-  getmascotas(): Observable<Mascota[]> {
+  getMascotas(): Observable<Mascota[]> {
     //Obtener los mascotas
     this.mascotas = this.mascotaColeccion.snapshotChanges().pipe(
       map((cambios) => {
         return cambios.map((accion) => {
           const datos = accion.payload.doc.data() as Mascota;
           datos.id = accion.payload.doc.id;
+        
           return datos;
         });
       })
@@ -35,11 +37,11 @@ export class mascotaServicio {
     return this.mascotas;
   }
 
-  agregarmascota(mascota: Mascota) {
+  agregarMascota(mascota: Mascota) {
     this.mascotaColeccion.add(mascota);
   }
 
-  getmascota(id: string) {
+  getMascota(id: string) {
     this.mascotaDoc = this.db.doc<Mascota>(`mascotas/${id}`);
     this.mascota = this.mascotaDoc.snapshotChanges().pipe(
       map((accion) => {
@@ -55,12 +57,12 @@ export class mascotaServicio {
     return this.mascota;
   }
 
-  modificarmascota(mascota: Mascota) {
+  modificarMascota(mascota: Mascota) {
     this.mascotaDoc = this.db.doc(`mascotas/${mascota.id}`);
     this.mascotaDoc.update(mascota);
   }
 
-  eliminarmascota(mascota: Mascota) {
+  eliminarMascota(mascota: Mascota) {
     this.mascotaDoc = this.db.doc(`mascotas/${mascota.id}`);
     this.mascotaDoc.delete();
   }

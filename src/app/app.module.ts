@@ -21,6 +21,10 @@ import { LoginComponent } from './componentes/login/login.component';
 import { RegistroComponent } from './componentes/registro/registro.component';
 import { NoEncontradoComponent } from './componentes/no-encontrado/no-encontrado.component';
 import { mascotaServicio } from './servicios/masctoa.service';
+import { LoginService } from './servicios/login.service';
+import { ConfiguracionServicio } from './servicios/configuracion.service';
+import { FileUploadService } from './servicios/fileUpload.service';
+import {AngularFireStorageModule } from '@angular/fire/compat/storage';
 
 @NgModule({
   declarations: [
@@ -36,12 +40,13 @@ import { mascotaServicio } from './servicios/masctoa.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firestore, 'mascotas'),
+    AngularFireModule.initializeApp(environment.firestore),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    AngularFireStorageModule,
     FormsModule,
   ],
-  providers: [mascotaServicio],
+  providers: [mascotaServicio, LoginService, ConfiguracionServicio,FileUploadService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,1 +1,69 @@
-<p>editar works!</p>
+<div class="container">
+  <form #mascotaForm="ngForm" (ngSubmit)="agregar(mascotaForm.form)">
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input
+          type="text"
+          name="nombre"
+          class="form-control"
+          #nombre="ngModel"
+          [(ngModel)]="mascota.nombre"
+          required
+          minlength="2"
+        />
+      </div>
+      <div class="form-group">
+        <label for="descripcion">Descripcion</label>
+        <input
+          type="text"
+          name="descripcion"
+          class="form-control"
+          #nombre="ngModel"
+          [(ngModel)]="mascota.descripcion"
+          required
+          minlength="10"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="enfermedades">Enfermedades</label>
+        <input
+          type="text"
+          name="enfermedades"
+          class="form-control"
+          #nombre="ngModel"
+          [(ngModel)]="mascota.enfermedades"
+          required
+          minlength="10"
+        />
+      </div>
+      <div class="form-group">
+        <label for="enfermedades">Foto</label>
+        <input
+          type="file"
+          name="foto"
+          id="foto"
+          class="form-control"
+          (change)="capturarFile($event)"
+        />
+      </div>
+      <!-- 
+
+        <div>
+        <img [src]="imagenPrevia" alt="imagen">
+        </div>
+       -->
+      
+
+      <div class="form-group" >
+        <button type="submit" class="btn btn-primary" [disabled]="!capturarFile">Guardar</button>
+      </div>
+
+      
+
+
+    </div>
+  </form>
+
+</div>

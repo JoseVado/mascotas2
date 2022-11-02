@@ -7,15 +7,16 @@
       <div class="col-sm-4" *ngFor="let mascotaTemp of mascotas">
         <div class="card">
           <img
-            src="{{ mascotaTemp.foto }}"
             class="img-responsive"
-            alt="Card image cap"
+            id = 'mascotaTemp.id'
+            alt="{{mascotaTemp.nombre}}"
+            src="{{mascotaTemp.foto}}"
           />
           <div class="card-body">
             <h5 class="card-title">{{ mascotaTemp.nombre }}</h5>
             <p class="card-text">{{ mascotaTemp.enfermedades }}</p>
             <p class="card-text">
-              <small class="text-muted">{{ mascotaTemp.actualizado.toDate().toString().substring(0,25) }}</small>
+              <small class="text-muted">Actualizado: {{ mascotaTemp.actualizado.toDate().toString().substring(0,25) }}</small>
             </p>
             <a
               routerLink="/mascota/{{ mascotaTemp.id }}"

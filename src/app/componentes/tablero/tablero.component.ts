@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { async } from '@firebase/util';
 import { Timestamp } from 'firebase/firestore';
 import { Mascota } from 'src/app/modelo/mascota.model';
+import { FileUploadService } from 'src/app/servicios/fileUpload.service';
 import { mascotaServicio } from 'src/app/servicios/masctoa.service';
 
 @Component({
@@ -9,25 +11,39 @@ import { mascotaServicio } from 'src/app/servicios/masctoa.service';
   styleUrls: ['./tablero.component.css'],
 })
 export class TableroComponent implements OnInit {
-  mascota: Mascota = {
-    id: '',
-    nombre: '',
-    enfermedades: '',
-    descripcion: '',
-    actualizado: new Timestamp (0 , 0),
-    foto: '',
-  };
   mascotas: Mascota[];
-  
-  constructor(private mascotaServicio: mascotaServicio,
-  ) { }
 
-  ngOnInit(): void {
-    this.mascotaServicio.getmascotas().subscribe(mascotas => {
+  constructor(
+    private mascotaServicio: mascotaServicio,
+    private fileUploadServicio: FileUploadService
+  ) {/*
+    this.mascotaServicio.getMascotas().subscribe((mascotas) => {
       this.mascotas = mascotas;
-      //this.timestampTrasnform();
-    })
+      this.fotos();
+    });*/
+  }
+
+  ngOnInit(): void{
+  
+    this.mascotaServicio.getMascotas().subscribe((mascotas) => {
+      this.mascotas = mascotas;
+      this.fotos();
+      
+    });
     
   }
 
+  fotos() {
+    this.mascotas.forEach((mascota: Mascota) => {
+      this.fileUploadServicio
+        .getFileOfStorage(mascota.foto)
+        .then((url) => {
+          mascota.foto = url;
+        })
+        .catch((error) => {
+          console.log(error);
+          return '../../assets/img/logo.png';
+        });
+    });
+  }
 }
